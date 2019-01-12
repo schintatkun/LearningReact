@@ -105,13 +105,15 @@ let bookList = [
 // const Library = ({books}) => {
 // adding state  we need to create class component  
 class Library extends React.Component {
-    // state = { open: false }
+    // state = { open: false, freebookmark: false }
     // line above can replace a whole constructor function below
 
     constructor(props){
         super(props)
         this.state = {
-            open: false
+            open: true,
+            freebookmark: false,
+            hiring: true
         }
         //when we're using constructor method, we need bind this
         this.toggleOpenClosed = this.toggleOpenClosed.bind(this)
@@ -136,25 +138,35 @@ class Library extends React.Component {
         // const books = this.props.books
     return (
         <div>
+            {this.state.hiring ? <Hiring /> : <NotHiring />}
             <h1>The Libary is {this.state.open ? 'open' : 'closed'}</h1>
             <button onClick= {this.toggleOpenClosed}>Click to Change</button>
             {books.map(
-                (book,i)=> <Book key={i} title={book.title} author={book.author} pages= {book.pages}/>
+                (book,i)=> <Book key={i} title={book.title} author={book.author} pages= {book.pages} freebookmark={book.freebookmark}/>
             )}
         </div>
     )
 }
 }
-const Book = ({title, author, pages}) => {
+const Book = ({title, author, pages, freebookmark}) => {
     return (
         <section>
             <h2>Title : {title}</h2>
             <p>By : {author}</p>
             <p>Pages : {pages} pages</p>
+            <p>Free BookMark Today : {freebookmark ? 'yes' : 'no'}</p>
         </section>
     )
 }
 
+const Hiring = () => 
+    <div>
+        <p>The library is hiring. Go to wwww.library.com/jobs for more info. </p>
+    </div>
+const NotHiring = () => 
+    <div>
+        <p>The library is not hiring. </p>
+    </div>
 
 render(
 //   <SkiDayCounter2

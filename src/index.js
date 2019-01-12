@@ -105,7 +105,7 @@ let bookList = [
 // const Library = ({books}) => {
 // adding state  we need to create class component  
 class Library extends React.Component {
-    // state = { open: false, freebookmark: false }
+    // state = { open: false, freebookmark: false, hiring: true }
     // line above can replace a whole constructor function below
 
     constructor(props){
@@ -113,12 +113,27 @@ class Library extends React.Component {
         this.state = {
             open: true,
             freebookmark: false,
-            hiring: true
+            hiring: true,
+            data: [],
+            loading: false
         }
         //when we're using constructor method, we need bind this
         this.toggleOpenClosed = this.toggleOpenClosed.bind(this)
     }
+    
+    //component life cycle  
+    componentDidMount(){
+        this.setState({loading: true})
+        fetch('https://hplussport.com/api/products/order/price/sort/asc/qty/1')
+            .then(data => data.json())
+            .then(data => this.setState({data, loading: false}))
+    }
+    //component life cycle 
+    componentDidUpdate(){
+        console.log('component is updated!')
+    }
 
+    //binding 
     //toggleOpenClosed = () => {
     toggleOpenClosed() {
         
@@ -139,6 +154,20 @@ class Library extends React.Component {
     return (
         <div>
             {this.state.hiring ? <Hiring /> : <NotHiring />}
+            {this.state.loading
+                ? "loading ..."
+                : <div>
+                    {this.state.data.map((product) =>{
+                        return (
+                            <div key={product.id}>
+                                <h3>Library Product of the week!</h3>
+                                <h4>{product.name}</h4>
+                                <img src={product.image} height={100} alt={product.name} />
+                            </div>// accessibility you need to specify alt tag value 
+                        )
+                    })}
+                  </div>
+            }
             <h1>The Libary is {this.state.open ? 'open' : 'closed'}</h1>
             <button onClick= {this.toggleOpenClosed}>Click to Change</button>
             {books.map(

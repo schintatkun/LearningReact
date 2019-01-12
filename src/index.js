@@ -103,13 +103,32 @@ let bookList = [
 ]
 
 // const Library = ({books}) => {
-// adding state    
+// adding state  we need to create class component  
 class Library extends React.Component {
+    // state = { open: false }
+    // line above can replace a whole constructor function below
+
     constructor(props){
         super(props)
         this.state = {
             open: false
         }
+        //when we're using constructor method, we need bind this
+        this.toggleOpenClosed = this.toggleOpenClosed.bind(this)
+    }
+
+    //toggleOpenClosed = () => {
+    toggleOpenClosed() {
+        
+        //setState is asynchronouse if you are relied on previouse state to set a new value
+        // you can use a callback function inside of set State
+        
+        this.setState(prevState => ({
+            open: !prevState.open
+        }))
+        // this.setState({
+        //    open: !this.state.open
+        // })
     }
     render(){
         console.log(this.state)
@@ -118,6 +137,7 @@ class Library extends React.Component {
     return (
         <div>
             <h1>The Libary is {this.state.open ? 'open' : 'closed'}</h1>
+            <button onClick= {this.toggleOpenClosed}>Click to Change</button>
             {books.map(
                 (book,i)=> <Book key={i} title={book.title} author={book.author} pages= {book.pages}/>
             )}

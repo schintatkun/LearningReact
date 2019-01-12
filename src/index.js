@@ -3,6 +3,10 @@ import React, { Component } from "react";
 // import ReactDOM from "react-dom";
 import { render } from "react-dom";
 
+//npm install prop-types --save
+import PropTypes from 'prop-types'
+
+
 let skiData = {
   total: 50,
   powder: 20,
@@ -105,7 +109,18 @@ let bookList = [
 // const Library = ({books}) => {
 // adding state  we need to create class component  
 class Library extends React.Component {
-    // state = { open: false, freebookmark: false, hiring: true }
+
+    //add Default props
+    //When no data available to display. It would display default value instead
+    static defaultProps ={
+        books: [
+            {"title": "Tahoe Tales", "author": "Chet Whitley", "pages": 1000}
+        ]
+    }
+
+
+
+    // state = { open: false, freebookmark: false, hiring: true, data: [], loading: false }
     // line above can replace a whole constructor function below
 
     constructor(props){
@@ -177,7 +192,10 @@ class Library extends React.Component {
     )
 }
 }
-const Book = ({title, author, pages, freebookmark}) => {
+
+//We can set function component a default argument syntax
+//Those value would be provided instead when actual value isn't available
+const Book = ({title="No Title", author="No Author", pages=0, freebookmark}) => {
     return (
         <section>
             <h2>Title : {title}</h2>
@@ -197,6 +215,39 @@ const NotHiring = () =>
         <p>The library is not hiring. </p>
     </div>
 
+// class FavoritecolorForm extends React.Component {
+//     state = { value: ''}
+//     newColor = e =>
+//         this.setState({value: e.target.value})
+//     submit = e => {
+//         console.log(`New Color: ${this.state.value}`)
+//         e.preventDefault()
+//     }
+//     render () {
+//         return (
+//             <form onSubmit={this.submit}> 
+//                 <label>Favorite Color: 
+//                     <input type="color" onChange={this.newColor} />
+//                 </label>
+//                 <button>Submit</button>
+//             </form>
+//         )
+//     }
+// }
+
+
+// propTypes would make sure that right type provide to component
+// It would throw an error when a wrong type has been assigned.
+Library.propTypes = {
+    books: PropTypes.array
+}
+Book.propTypes = {
+    title: PropTypes.string,
+    author: PropTypes.string,
+    pages: PropTypes.number,
+    freebookmark: PropTypes.bool
+}
+
 render(
 //   <SkiDayCounter2
 //     total={skiData.total}
@@ -205,7 +256,8 @@ render(
 //     goal={skiData.goal}
 //   />,
 
-<Library books={bookList}/>
-,
+<Library books={bookList}/>,
+//<Library/>,
+//<FavoritecolorForm/>,
 document.getElementById("root")
 );

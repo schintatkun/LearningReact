@@ -102,16 +102,29 @@ let bookList = [
     {"title": "Bleach", "author": "some Japanese guy", "pages": 2260 }
 ]
 
-const Library = ({books}) => {
+// const Library = ({books}) => {
+// adding state    
+class Library extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            open: false
+        }
+    }
+    render(){
+        console.log(this.state)
+        const {books} = this.props
+        // const books = this.props.books
     return (
         <div>
+            <h1>The Libary is {this.state.open ? 'open' : 'closed'}</h1>
             {books.map(
                 (book,i)=> <Book key={i} title={book.title} author={book.author} pages= {book.pages}/>
             )}
         </div>
     )
 }
-
+}
 const Book = ({title, author, pages}) => {
     return (
         <section>

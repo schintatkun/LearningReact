@@ -92,12 +92,37 @@ const SkiDayCounter2 = ({total, powder, backcountry, goal}) => {
 
 // ReactDOM.render(
 // <Message color="blue" minutes={10} msg="How are you?"/>,
+
+const Library = () => {
+    return (
+        <div>
+            <Book title="Naruto" author="Japanese" pages= {50}/>
+            <Book title="Naruto" author="Japanese" pages= {50}/>
+            <Book title="Naruto" author="Japanese" pages= {50}/>
+        </div>
+    )
+}
+
+const Book = ({title, author, pages}) => {
+    return (
+        <section>
+            <h2>Title : {title}</h2>
+            <p>By : {author}</p>
+            <p>Pages : {pages} pages</p>
+        </section>
+    )
+}
+
+
 render(
-  <SkiDayCounter2
-    total={skiData.total}
-    powder={skiData.power}
-    backcountry={skiData.backcountry}
-    goal={skiData.goal}
-  />,
-  document.getElementById("root")
+//   <SkiDayCounter2
+//     total={skiData.total}
+//     powder={skiData.power}
+//     backcountry={skiData.backcountry}
+//     goal={skiData.goal}
+//   />,
+
+<Library/>
+,
+document.getElementById("root")
 );

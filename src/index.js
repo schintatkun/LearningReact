@@ -1,47 +1,79 @@
 // import React from "react";
-import React, {Component} from "react";
+import React, { Component } from "react";
 // import ReactDOM from "react-dom";
-import {render} from "react-dom";
+import { render } from "react-dom";
 
 let skiData = {
-    total: 50,
-    powder: 20,
-    backcountry: 10,
-    goal: 100
-}
-
+  total: 50,
+  powder: 20,
+  backcountry: 10,
+  goal: 100
+};
+//Create component
 // class SkiDayCounter extends React.Component {
 class SkiDayCounter extends Component {
-    getPercent = decimal =>{
-        return decimal*100 +'%'
-    }
-    calcGoalProgress = (total, goal) => {
-        return this.getPercent(total/goal)
-    }
-    render() {
-        const {total, powder, backcountry, goal} = this.props;
-        return (
-            <section>
-                <div>
-                    <p>Total Days: {total}</p>
-                </div>
-                <div>
-                    <p>Powder Days: {powder}</p>
-                </div>
-                <div>
-                    <p>Backcountry Days: {backcountry}</p>
-                </div>
-                <div>
-                    <p>Goal Days: {goal}</p>
-                </div>
-                <div>
-                    <p>Goal Progress: {this.calcGoalProgress(total, goal)}</p>
-                </div>
-            </section>
-        )
-    }
+  //adding custom methods
+  getPercent = decimal => {
+    return decimal * 100 + "%";
+  };
+  calcGoalProgress = (total, goal) => {
+    return this.getPercent(total / goal);
+  };
+  render() {
+    const { total, powder, backcountry, goal } = this.props;
+    return (
+      <section>
+        <div>
+          <p>Total Days: {total}</p>
+        </div>
+        <div>
+          <p>Powder Days: {powder}</p>
+        </div>
+        <div>
+          <p>Backcountry Days: {backcountry}</p>
+        </div>
+        <div>
+          <p>Goal Days: {goal}</p>
+        </div>
+        <div>
+          <p>Goal Progress: {this.calcGoalProgress(total, goal)}</p>
+        </div>
+      </section>
+    );
+  }
 }
 
+//create function component 
+//another way to do as it can be compared to above  
+//We can use function to create component
+const getPercent = decimal =>{
+    return decimal * 100+'%'
+}
+const calcGoalProgress = (total, goal)=>{
+    return getPercent(total/goal)
+}
+//use {} access props by name directly instead of props.total and passing SkiDayCounter2 = (props)=> {} in function call
+const SkiDayCounter2 = ({total, powder, backcountry, goal}) => {
+  return (
+    <section>
+      <div>
+        <p>Total Days: {total}</p>
+      </div>
+      <div>
+        <p>Powder Days: {powder}</p>
+      </div>
+      <div>
+        <p>Backcountry Days: {backcountry}</p>
+      </div>
+      <div>
+        <p>Goal Days: {goal}</p>
+      </div>
+      <div>
+        <p>Goal Progress: {calcGoalProgress(total, goal)}</p>
+      </div>
+    </section>
+  );
+};
 
 //Component name must be capitalized
 // class Message extends React.Component {
@@ -58,14 +90,14 @@ class SkiDayCounter extends Component {
 //     }
 // }
 
+// ReactDOM.render(
+// <Message color="blue" minutes={10} msg="How are you?"/>,
 render(
-    // ReactDOM.render(
-    // <Message color="blue" minutes={10} msg="How are you?"/>, 
-    <SkiDayCounter 
-    total= {skiData.total}
-    powder= {skiData.power}
+  <SkiDayCounter2
+    total={skiData.total}
+    powder={skiData.power}
     backcountry={skiData.backcountry}
-    goal= {skiData.goal}
-    />,
-    document.getElementById("root")
-)
+    goal={skiData.goal}
+  />,
+  document.getElementById("root")
+);

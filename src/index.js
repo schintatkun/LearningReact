@@ -93,12 +93,21 @@ const SkiDayCounter2 = ({total, powder, backcountry, goal}) => {
 // ReactDOM.render(
 // <Message color="blue" minutes={10} msg="How are you?"/>,
 
-const Library = () => {
+
+//array of data  -- act as a database 
+let bookList = [
+    {"title": "Naruto", "author": "some Japanese guy", "pages": 260 },
+    {"title": "YuYu Hakusho", "author": "some Japanese guy", "pages": 3640 },
+    {"title": "Black Clover", "author": "some Japanese guy", "pages": 120 },
+    {"title": "Bleach", "author": "some Japanese guy", "pages": 2260 }
+]
+
+const Library = ({books}) => {
     return (
         <div>
-            <Book title="Naruto" author="Japanese" pages= {50}/>
-            <Book title="Naruto" author="Japanese" pages= {50}/>
-            <Book title="Naruto" author="Japanese" pages= {50}/>
+            {books.map(
+                (book,i)=> <Book key={i} title={book.title} author={book.author} pages= {book.pages}/>
+            )}
         </div>
     )
 }
@@ -122,7 +131,7 @@ render(
 //     goal={skiData.goal}
 //   />,
 
-<Library/>
+<Library books={bookList}/>
 ,
 document.getElementById("root")
 );
